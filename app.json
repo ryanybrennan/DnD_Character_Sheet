@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Capstone/side project request by my dungeons and dragons players to create a mobile character sheet.",
+    "githubUrl": "https://github.com/ryanybrennan/DnD_Character_Sheet"
   }
 }
