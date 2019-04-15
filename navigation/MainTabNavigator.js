@@ -4,8 +4,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SkillsScreen from '../screens/SkillsScreen';
+import FeaturesScreen from '../screens/FeaturesScreen';
+import SpellsScreen from '../screens/SpellsScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -25,12 +26,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const SkillsStack = createStackNavigator({
+  Skills: SkillsScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+SkillsStack.navigationOptions = {
+  tabBarLabel: 'Skills',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -39,12 +40,12 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const FeaturesStack = createStackNavigator({
+  Features: FeaturesScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+FeaturesStack.navigationOptions = {
+  tabBarLabel: 'Features',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -53,8 +54,22 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const SpellsStack = createStackNavigator({
+  Spells: SpellsScreen,
+});
+
+SpellsStack.navigationOptions = {
+  tabBarLabel: 'Spells',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+     focused={focused}
+     name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}/>
+  )
+}
+
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  SkillsStack,
+  FeaturesStack,
+  SpellsStack
 });
