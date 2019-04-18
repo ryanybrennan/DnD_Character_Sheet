@@ -11,6 +11,7 @@ class Race extends React.PureComponent {
         this.state = {
             races: [],
             topRace: String,
+            topSubRace: String,
             features: [],
             speed: String,
             ability_bonuses: [],
@@ -22,11 +23,15 @@ class Race extends React.PureComponent {
             languages: [],
             language_desc: String,
             traits: [],
-            subraces: []
+            subraces: [],
+            simpleFeatures: [],
+            complexFeatures: [],
+            scoreBonus: []
+
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this._isMounted = true;
         axios.get("http://dnd5eapi.co/api/races")
         .then(response => response.data)
@@ -51,61 +56,134 @@ class Race extends React.PureComponent {
         )
     }
 
+    setSubRace() {
+        return this.state.subraces.map((subrace, index) =>
+        <Picker.Item key={index} label={subrace.name} value={subrace.name}/>
+        )
+    }
+
     getFeatures(item){
         this.state.races.forEach(race => {
             if(race.name == item){
-                // console.log(race.url);
                 axios.get(race.url)
                 .then(response => response.data)
                 .then(responseJson =>
                     this.setState({features: Object.keys(responseJson).map(key => 
                         ({feature: key, info: responseJson[key]}))}))
+                .then(() => this.allocateFeatures())
+                .then(() => this.mapAbilityBonuses())
                 .catch(error => console.log(error));
-                // this.allocateFeatures(this.state.features);
             }
         });
     }
 
-    displayFeatures(){
-        return this.state.features.map((feature, index) => 
-        // console.log(feature.feature, feature.info),
-        <RaceFeatureItem key={index} feature={feature.feature} />
-        // console.log(typeof feature.info)
-        // console.log(feature)
-        // <Text>{feature.feature}: {feature.info}</Text>
+    allocateFeatures(){
+        let simpleFeatures = [];
+        let complexFeatures = [];
+        this.state.features.map((feature, index) => 
+        {
+            
+            if(typeof feature.info === "string" || typeof feature.info === "number"){
+                if(feature.feature !== "_id" && feature.feature !== "index" && feature.feature !== "url"){
+                    simpleFeatures.push(feature);
+                }  
+            }else {
+                complexFeatures.push(feature);
+            }
+        })
+        this.setState({simpleFeatures: simpleFeatures});
+        this.setState({complexFeatures: complexFeatures});
+        this.allocateComplexFeatures(this.state.complexFeatures);
+    }
+    mapAbilityBonuses() {
+        let scoreBonus = {};
+        const ability_bonuses = this.state.ability_bonuses;
+        for(let i in ability_bonuses){
+            if(ability_bonuses[i] > 0 && i == 0){
+                scoreBonus["Strength"] = ability_bonuses[i];
+            }
+            if(ability_bonuses[i] > 0 && i == 1){
+                scoreBonus["Dexteriy"] = ability_bonuses[i];
+            }
+            if(ability_bonuses[i] > 0 && i == 2){
+                scoreBonus["Constitution"] = ability_bonuses[i];
+            }
+            if(ability_bonuses[i] > 0 && i == 3){
+                scoreBonus["Intelligence"] = ability_bonuses[i];
+            }
+            if(ability_bonuses[i] > 0 && i == 4){
+                scoreBonus["Wisdom"] = ability_bonuses[i];
+            }
+            if(ability_bonuses[i] > 0 && i == 5){
+                scoreBonus["Charisma"] = ability_bonuses[i];
+            }
+        }
+        this.setState({scoreBonus: Object.keys(scoreBonus).map(key => 
+            ({feature: key, info: scoreBonus[key]}))});
+    }
+    displayAbilityBonuses(){
+        return this.state.scoreBonus.map((score, index) => 
+            <RaceFeatureItem key={index} feature={score.feature} info={score.info}/>
         )
-       
+    }
+    displaySimpleFeatures() {
+        return this.state.simpleFeatures.map((feature, index) =>
+        <RaceFeatureItem key={index} feature={feature.feature} info={feature.info}/>
+        )}
+    displayLanguages(){
+        return this.state.languages.map((language, index) =>
+        <Text key={index}>Language: {language.name}</Text>)
+    }
+    // displayComplexFeatures(){
+    //     this.state.complexFeatures.map((feature, index) =>
+    //     console.log('complex feature', feature)
+    //     ) 
+    // }
+    displayStartingProficiencies(){
+        return this.state.starting_proficiencies.map((sprof, index)=>
+        <Text key={index}>Starting Proficiencies: {sprof.name}</Text>
+        )
+    }
+    displayTraits(){
+        return this.state.traits.map((trait, index)=>
+        <Text key={index}>Traits: {trait.name}</Text>
+        )
+    }
+    displaySubRaces(){
+        return this.state.subraces.map((subrace, index)=>
+        <Text key={index}>Subrace: {subrace.name}</Text>
+        )
     }
 
-    allocateFeatures(features){
+    allocateComplexFeatures(features){
         for(let i in features){
-            if(features[i].feature == "speed"){
-                this.setState({speed: features[i].info})
-            }
+            // if(features[i].feature == "speed"){
+            //     this.setState({speed: features[i].info})
+            // }
             if(features[i].feature == "ability_bonuses"){
                 this.setState({ability_bonuses: features[i].info})
             }
-            if(features[i].feature == "alignment"){
-                this.setState({alignment: features[i].info})
-            }
-            if(features[i].feature == "age"){
-                this.setState({age: features[i].info})
-            }
-            if(features[i].feature == "size"){
-                this.setState({size: features[i].info})
-            }
-            if(features[i].feature == "size_description"){
-                this.setState({size_description: features[i].info})
-            }
+            // if(features[i].feature == "alignment"){
+            //     this.setState({alignment: features[i].info})
+            // }
+            // if(features[i].feature == "age"){
+            //     this.setState({age: features[i].info})
+            // }
+            // if(features[i].feature == "size"){
+            //     this.setState({size: features[i].info})
+            // }
+            // if(features[i].feature == "size_description"){
+            //     this.setState({size_description: features[i].info})
+            // }
             if(features[i].feature == "starting_proficiencies"){
                 this.setState({starting_proficiencies: features[i].info})
             }
             if(features[i].feature == "languages"){
                 this.setState({languages: features[i].info})
             }
-            if(features[i].feature == "language_desc"){
-                this.setState({language_desc: features[i].info})
-            }
+            // if(features[i].feature == "language_desc"){
+            //     this.setState({language_desc: features[i].info})
+            // }
             if(features[i].feature == "traits"){
                 this.setState({traits: features[i].info})
             }
@@ -113,9 +191,6 @@ class Race extends React.PureComponent {
                 this.setState({subraces: features[i].info})
             }
         }
-        // return this.state.map((key, index) =>
-        //     <RaceFeatureItem key={index} feature={this.state.key} />
-        // )
     }
 
     render() {
@@ -123,11 +198,11 @@ class Race extends React.PureComponent {
             <View style={styles.racePicker}>
                 <Text>Pick a Race</Text>
                 <Picker
-                selectedValue={this.state.topRace}
+                selectedValue={this.state.topSubRace}
                 style={{flex: 1, height: 150, width: 200}}
                 onValueChange={(itemValue) => {
                     if(itemValue !== 0){
-                        this.setState({topRace: itemValue},
+                        this.setState({topSubRace: itemValue},
                         this.getFeatures(itemValue))
                     }
                   }}>
@@ -135,7 +210,13 @@ class Race extends React.PureComponent {
                   {this.setRace()}
                 </Picker>
                 <ScrollView style={{flex:1}}>
-                {this.displayFeatures()}
+                {this.displayAbilityBonuses()}
+                {this.displaySimpleFeatures()}
+                {/* {this.displayComplexFeatures()} */}
+                {this.displayLanguages()}
+                {this.displayStartingProficiencies()}
+                {this.displayTraits()}
+                {this.displaySubRaces()}
                   {/* <Text>Speed: {this.state.speed}</Text>
                   <Text>Size: {this.state.size}</Text>
                   <Text>{this.state.size_description}</Text>
@@ -148,7 +229,20 @@ class Race extends React.PureComponent {
                   <Text>Traits: {this.state.traits}</Text>
                   <Text>Subrace: {this.state.subraces}</Text> */}
                 </ScrollView>
-                
+                <Text>Pick a Subrace</Text>
+                <Picker
+                selectedValue={this.state.topSubRace}
+                style={{flex: 1, height: 150, width: 200}}
+                onValueChange={(itemValue) => {
+                    if(itemValue !== 0){
+                        this.setState({topSubRace: itemValue},
+                        // this.getFeatures(itemValue)
+                        )
+                    }
+                  }}>
+                  <Picker.Item key="-1" label="--" value="0"/>
+                  {this.setSubRace()}
+                </Picker>
                 <Button
                 title="Go back"
                 onPress={() => this.props.navigation.navigate('Start')}
