@@ -22,6 +22,18 @@ export default StyleSheet.create({
         paddingHorizontal: 7,
         paddingVertical: 5
     },
+    scoresRow1: {
+      flex: 1,
+      // width: '100%',
+      flexDirection: "row",
+      justifyContent: "space-between"
+    },
+    statBlock: {
+      flex:1,
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center"
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',

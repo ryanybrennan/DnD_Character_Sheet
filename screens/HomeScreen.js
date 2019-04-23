@@ -14,10 +14,12 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import styles from '../assets/styles/CharSheet';
+import shapes from '../assets/styles/Shapes';
+import StatCard from '../components/StatCard';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Stats',
   };
 
   constructor(props) {
@@ -44,26 +46,23 @@ export default class HomeScreen extends React.Component {
               <Text>Class: Paladin</Text>
             </View>
           </View>
-          <View>
-            <Text>Strength</Text>
+          <View style={styles.scoresRow1}>
+            <StatCard name="Strength" score={17} modifier={3} savingThrow={3} />
+            <StatCard name="Dexterity" score={8} modifier={-1} savingThrow={-1} />
+            <StatCard name="Constitution" score={14} modifier={2} savingThrow={2} />
           </View>
-          <View>
-            <Text>Dexterity</Text>
+          <View style={styles.scoresRow1}>
+            <StatCard name="Intelligence" score={10} modifier={0} savingThrow={0} />
+            <StatCard name="Wisdom" score={14} modifier={2} savingThrow={4} />
+            <StatCard name="Charisma" score={16} modifier={3} savingThrow={6} />
           </View>
-          <View>
-            <Text>Constitution</Text>
+          <View style={styles.scoresRow1}>
+            <View style={shapes.CircleShapeView}>
+              <Text>Proficiency Bonus</Text>
+              <Text>2</Text>
+            </View>
           </View>
-          <View>
-            <Text>Intelligence</Text>
-          </View>
-          <View>
-            <Text>Wisdom</Text>
-          </View>
-          <View>
-            <Text>Charisma</Text>
-          </View>
-        
-
+          
           <Button
             title="Go back"
             onPress={() => this.props.navigation.navigate('Start')}
