@@ -1,19 +1,38 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import * as actions from '../actions/index';
+import { connect } from 'react-redux';
 // import { withRouter } from 'react-router-native';
 
 import styles from '../assets/styles/CharList';
 import Card from './CharCard';
 
-const CharListItem = (props) => {
-    return (
-        <Card style={styles.charListItem}>
-            <Text>{props.name}, Level: {props.level}</Text>
-            <Text>{props.race} {props.class}</Text> 
-        </Card>
-    )
+class CharListItem extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    onCharSelect(id) {
+        this.props.selectChar(id);
+        this.props.navigation.navigate('Main')
+    }
+    render(){
+        return (
+            <TouchableOpacity style={styles.charListItem}
+            onPress={() => this.onCharSelect(this.props.id)}>
+                <Text>{this.props.name}, Level: {this.props.level}</Text>
+                <Text>{this.props.race} {this.props.class}</Text> 
+            </TouchableOpacity>
+        )
+    }
 
 }
 
-export default withNavigation(CharListItem);
+const mapStateToProps = (state, ownProps) => {
+
+    const selected = state.characters.id === ownProps.id
+    return {selected}
+}
+
+
+export default connect(mapStateToProps, actions)(withNavigation(CharListItem));
