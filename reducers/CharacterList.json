@@ -1,0 +1,45 @@
+[
+    {
+        "id" : 0,
+        "name": "Samson LightLance",
+        "race": "half-elf",
+        "class": "Paladin",
+        "level": 3,
+        "ability-scores": [
+            17, 8, 15, 14, 10, 15
+        ],
+        "features": [
+            {
+                "name": "Channel Divinity",
+                "description": "Does stuff"
+            },
+            {
+                "name": "Divine Strike",
+                "description": "Does radiant stuff"
+            }
+            
+        ],
+        "subclass": "Oath of Devotion",
+        "subclassFeatures":[
+            {
+                "name": "Feature 1",
+                "description": "Does something"
+            },
+            {
+                "name": "Feature 2",
+                "description": "Does something else"
+            }
+        ],
+        "proficiencies": [
+            {
+                "name": "Heavy Armor"
+            },
+            {
+                "name": "Martial Weapons"
+            },
+            {
+                "name": "Shields"
+            }
+        ]
+    }
+]
