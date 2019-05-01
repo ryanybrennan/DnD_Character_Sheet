@@ -23,7 +23,7 @@ class StartScreen extends React.PureComponent{
                 <FlatList
                 data={this.props.characters}
                 renderItem={this.renderCharList}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 />
                 <View style={styles.button}>
                     <Button
