@@ -13,17 +13,6 @@ export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
-  // componentWillMount(){
-  //   const config = {
-  //     apiKey: "AIzaSyD_NjLupQ18Q9g8UbFlGFWT8BXFiLhmXv0",
-  //     authDomain: "dnd-character-sheet-e5503.firebaseapp.com",
-  //     databaseURL: "https://dnd-character-sheet-e5503.firebaseio.com",
-  //     projectId: "dnd-character-sheet-e5503",
-  //     storageBucket: "dnd-character-sheet-e5503.appspot.com",
-  //     messagingSenderId: "742729858269"
-  //   };
-  //   firebase.initializeApp(config);
-  // }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {

@@ -14,7 +14,10 @@ class CharListItem extends React.Component {
     }
     onCharSelect(id) {
         this.props.selectChar(id);
-        this.props.navigation.navigate('Main')
+        console.log(this.props)
+        this.props.navigation.navigate('Main', {
+            character: this.props.characters.find(x => x.id === id)
+        })
     }
     render(){
         return (
@@ -28,10 +31,14 @@ class CharListItem extends React.Component {
 
 }
 
-const mapStateToProps = (state, ownProps) => {
+// const mapStateToProps = (state, ownProps) => {
 
-    const selected = state.characters.id === ownProps.id
-    return {selected}
+//     const selected = state.characters.id === ownProps.id
+//     return {selected}
+// }
+
+const mapStateToProps = state => {
+    return {characters: state.characters}
 }
 
 
