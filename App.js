@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import StartScreen from './screens/Start';
 import firebase from 'firebase';
 
 import { Provider } from 'react-redux';

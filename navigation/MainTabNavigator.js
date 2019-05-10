@@ -5,14 +5,16 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SkillsScreen from '../screens/SkillsScreen';
-import FeaturesScreen from '../screens/FeaturesScreen';
+import RFeaturesScreen from '../screens/RacialFeaturesScreen';
 import SpellsScreen from '../screens/SpellsScreen';
+import CFeaturesScreen from '../screens/ClassFeaturesScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-});
+// const HomeStack = createStackNavigator({
+//   Home: HomeScreen,
+// });
 
-HomeStack.navigationOptions = {
+HomeScreen.navigationOptions = {
+  title: 'Home',
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -26,11 +28,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const SkillsStack = createStackNavigator({
-  Skills: SkillsScreen,
-});
+// const SkillsStack = createStackNavigator({
+//   Skills: SkillsScreen,
+// });
 
-SkillsStack.navigationOptions = {
+SkillsScreen.navigationOptions = {
+  title: 'Skills',
   tabBarLabel: 'Skills',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -40,12 +43,13 @@ SkillsStack.navigationOptions = {
   ),
 };
 
-const FeaturesStack = createStackNavigator({
-  Features: FeaturesScreen,
-});
+// const FeaturesStack = createStackNavigator({
+//   Features: FeaturesScreen,
+// });
 
-FeaturesStack.navigationOptions = {
-  tabBarLabel: 'Features',
+RFeaturesScreen.navigationOptions = {
+  title: 'Racial Features',
+  tabBarLabel: 'Racial Features',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -54,11 +58,23 @@ FeaturesStack.navigationOptions = {
   ),
 };
 
-const SpellsStack = createStackNavigator({
-  Spells: SpellsScreen,
-});
+CFeaturesScreen.navigationOptions = {
+  title: 'Class Features',
+  tabBarLabel: 'Class Features',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+}
 
-SpellsStack.navigationOptions = {
+// const SpellsStack = createStackNavigator({
+//   Spells: SpellsScreen,
+// });
+
+SpellsScreen.navigationOptions = {
+  title: 'Spells',
   tabBarLabel: 'Spells',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -68,8 +84,9 @@ SpellsStack.navigationOptions = {
 }
 
 export default createBottomTabNavigator({
-  HomeStack,
-  SkillsStack,
-  FeaturesStack,
-  SpellsStack
+  HomeScreen,
+  SkillsScreen,
+  RFeaturesScreen,
+  CFeaturesScreen,
+  SpellsScreen,
 });

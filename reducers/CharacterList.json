@@ -2,12 +2,20 @@
     {
         "id" : 0,
         "name": "Samson LightLance",
-        "race": "half-elf",
+        "race": "Human",
         "class": "Paladin",
         "level": 3,
-        "ability-scores": [
-            17, 8, 15, 14, 10, 15
+        "abilityscores": [
+            {"name": "Strength", "score":17}, 
+            {"name": "Dexterity", "score": 8},
+            {"name": "Constitution", "score":15},
+            {"name": "Intelligence", "score":14},
+            {"name": "Wisdom", "score":10},
+            {"name": "Charisma", "score":15}
         ],
+        "health": 43,
+        "experience": 4500,
+        "armorclass": 18,
         "features": [
             {
                 "name": "Channel Divinity",
@@ -41,5 +49,23 @@
                 "name": "Shields"
             }
         ]
+    },
+    {
+        "id": 1,
+        "name": "Aelar",
+        "race": "Half-elf",
+        "class": "Sorcerer",
+        "level": 2,
+        "abilityscores": [
+            {"name": "Strength", "score":7}, 
+            {"name": "Dexterity", "score": 15},
+            {"name": "Constitution", "score":16},
+            {"name": "Intelligence", "score":12},
+            {"name": "Wisdom", "score":10},
+            {"name": "Charisma", "score":18}
+        ],
+        "experience": 1000,
+        "health": 28,
+        "armorclass": 15
     }
 ]

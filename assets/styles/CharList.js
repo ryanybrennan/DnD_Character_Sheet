@@ -14,7 +14,19 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'silver',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        borderWidth: 1,
+        borderRadius: 2,
+        borderColor: '#ddd',
+        shadowColor: "#000",
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        elevation: 1,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5,
+        backgroundColor: 'silver'
      },
      cardStyle: {
         flex: 1,

@@ -1,9 +1,12 @@
 import { SELECT_CHARACTER } from "../constants/types";
+import data from './CharacterList.json';
 
-export default (state = null, action) => {
+const INITIAL_STATE = {};
+
+export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SELECT_CHARACTER:
-            return {...state, id: action.payload}
+            return {...state, character: action.payload}
         default:
             return state;
     }

@@ -14,6 +14,7 @@ class StartScreen extends React.PureComponent{
     }
 
     renderCharList = ({item}) => {
+        // console.log(item.id);
        return <CharListItem id={item.id} name={item.name} race={item.race} class={item.class} level={item.level} navigation={this.props.navigation}/>
     }
 

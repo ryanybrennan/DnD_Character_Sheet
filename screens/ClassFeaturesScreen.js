@@ -2,7 +2,7 @@ import React from 'react';
 // import { ExpoConfigView } from '@expo/samples';
 import {Text, View, FlatList} from 'react-native';
 
-class FeaturesScreen extends React.Component {
+class ClassFeaturesScreen extends React.Component {
   constructor(props){
     super(props)
     this.state={
@@ -10,7 +10,7 @@ class FeaturesScreen extends React.Component {
     }
   }
   static navigationOptions = {
-    title: 'Features',
+    title: 'Racial Features',
   };
 
   render() {
@@ -38,4 +38,4 @@ class FeaturesScreen extends React.Component {
   }
 }
 
-export default FeaturesScreen;
+export default ClassFeaturesScreen;
