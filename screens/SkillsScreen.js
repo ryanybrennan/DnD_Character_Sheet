@@ -5,6 +5,7 @@ import styles from '../assets/styles/CharSheet';
 import shapes from '../assets/styles/Shapes';
 import axios from 'axios';
 import { withNavigation } from 'react-navigation';
+import { baseApi } from '../constants/urls';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
@@ -16,20 +17,20 @@ class SkillsScreen extends React.Component {
     this.state = ({
       prof: Boolean,
       skills: [],
-      character: {}
+      // character: {}
     })
   }
   static navigationOptions = {
     title: 'Skills',
   };
-  componentWillMount(){
-    this.setState({character: this.props.navigation.getParam('character')});
+  componentDidMount(){
+    // this.setState({character: this.props.navigation.getParam('character')});
     this._isMounted = true;
-    axios.get("http://dnd5eapi.co/api/skills")
+    axios.get(baseApi+'skills')
     .then(response => response.data)
     .then(responseJson => {
       if (this._isMounted){
-        console.log(responseJson.results);
+        // console.log(responseJson.results);
         this.setState({
           skills: responseJson.results,
         })
@@ -55,7 +56,8 @@ class SkillsScreen extends React.Component {
   render() {
     // console.log(this.props);
     // const character = this.props.navigation.getParam('character');
-    const character = this.state.character;
+    // const character = this.state.character;
+    const character = this.props.character;
     return (
     <View style={stylesCont.container}>
       <View style={{flex: 1, alignItems: 'center', justifyContent:'space-evenly', flexDirection: 'row', height: '100%', width:'100%'}}>
@@ -111,10 +113,11 @@ const stylesCont = StyleSheet.create({
   },
 });
 
-// const mapStateToProps = state => {
-//   const character =  state.characters.find(x => x.id === 0)
-//   return {character: character};
-//   // return {characters: state.characters};
-// }
+const mapStateToProps = (state, props) => {
+  // console.log(state);
+  const character =  state.characters.find(x => x.id === props.navigation.getParam('charId'))
+  return {character: character};
+  // return {characters: state.characters};
+}
 
-export default connect(null, actions)(withNavigation(SkillsScreen));
+export default connect(mapStateToProps, actions)(withNavigation(SkillsScreen));

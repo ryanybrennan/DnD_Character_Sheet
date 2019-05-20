@@ -27,20 +27,20 @@ class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = ({
-      character: {}
-    })
+    // this.state = ({
+    //   character: {}
+    // })
   }
 
-  componentWillMount(){
-    this.setState({character: this.props.navigation.getParam('character')});
+  componentDidMount(){
+    // this.setState({character: this.props.navigation.getParam('character')});
     // this.props.navigation.setParams({character: this.props.character})
     // console.log(this.props);
     // this.props.selectChar(charId)
   }
 
   componentDidUpdate(){
-    this.setState({character: this.props.navigation.getParam('character')});
+    // this.setState({character: this.props.navigation.getParam('character')});
   }
 
   calcModifier(abilityscore){
@@ -49,7 +49,7 @@ class HomeScreen extends React.Component {
   }
 
   renderStatsRow1(){
-    const scores = this.state.character.abilityscores;
+    const scores = this.props.character.abilityscores;
     const row1 = scores.slice(0,(scores.length/2));
     return row1.map((score, index) => 
       <StatCard key={index} name={score.name} score={score.score} modifier={this.calcModifier(score.score)} savingThrow={this.calcModifier(score.score)} />
@@ -57,7 +57,7 @@ class HomeScreen extends React.Component {
   }
 
   renderStatsRow2(){
-    const scores = this.state.character.abilityscores;
+    const scores = this.props.character.abilityscores;
     const row2 = scores.slice((scores.length/2),scores.length);
     return row2.map((score, index) => 
       <StatCard key={index} name={score.name} score={score.score} modifier={this.calcModifier(score.score)} savingThrow={this.calcModifier(score.score)} />
@@ -66,9 +66,9 @@ class HomeScreen extends React.Component {
 
   render() {
     // console.log(this.props);
-    // const character = this.props.character;
+    const character = this.props.character;
     // const character = this.props.navigation.getParam('character');
-    const character = this.state.character;
+    // const character = this.state.character;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -117,13 +117,13 @@ class HomeScreen extends React.Component {
 // const {navigation} = this.props;
 // const charId = navigation.getParam('charId')
 
-// const mapStateToProps = state => {
-//   console.log(state);
-//   const character =  state.characters.find(x => x.id === 0)
-//   return {character: character};
-//   // return {characters: state.characters};
-// }
+const mapStateToProps = (state, props) => {
+  // console.log(state);
+  const character =  state.characters.find(x => x.id === props.navigation.getParam('charId'))
+  return {character: character};
+  // return {characters: state.characters};
+}
 
 
-export default connect(null, {selectChar})(withNavigation(HomeScreen));
+export default connect(mapStateToProps, {selectChar})(withNavigation(HomeScreen));
 

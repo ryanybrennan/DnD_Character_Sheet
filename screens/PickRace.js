@@ -103,7 +103,7 @@ class Race extends React.PureComponent {
                 scoreBonus["Strength"] = ability_bonuses[i];
             }
             if(ability_bonuses[i] > 0 && i == 1){
-                scoreBonus["Dexteriy"] = ability_bonuses[i];
+                scoreBonus["Dexterity"] = ability_bonuses[i];
             }
             if(ability_bonuses[i] > 0 && i == 2){
                 scoreBonus["Constitution"] = ability_bonuses[i];
@@ -129,7 +129,7 @@ class Race extends React.PureComponent {
     displaySimpleFeatures() {
         return this.state.simpleFeatures.map((feature, index) =>
         <RaceFeatureItem key={index} feature={feature.feature} info={feature.info}/>
-        )}
+    )}
     displayLanguages(){
         return this.state.languages.map((language, index) =>
         <Text key={index}>Language: {language.name}</Text>)

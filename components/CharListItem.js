@@ -12,19 +12,19 @@ class CharListItem extends React.Component {
     constructor(props) {
         super(props);
     }
-    onCharSelect(id) {
-        // this.props.selectChar(id);
-        // console.log(id);
-        this.props.navigation.navigate('Main', {
-            charId: id,
-            character: this.props.selectChar(id).payload
-        })
-    }
+    // onCharSelect(id) {
+    //     // this.props.selectChar(id);
+    //     // console.log(id);
+    //     this.props.navigation.navigate('Main', {
+    //         charId: id,
+    //         character: this.props.selectChar(id).payload
+    //     })
+    // }
     render(){
         return (
             <TouchableOpacity style={styles.charListItem}
-            // onPress={() => this.props.navigation.navigate('Main', {charId: this.props.id})}
-            onPress={()=> this.onCharSelect(this.props.id)}
+            onPress={() => this.props.navigation.navigate('Main', {charId: this.props.id})}
+            // onPress={()=> this.onCharSelect(this.props.id)}
             >
                 <Text>{this.props.name}, Level: {this.props.level}</Text>
                 <Text>{this.props.race} {this.props.class}</Text> 
@@ -40,4 +40,4 @@ class CharListItem extends React.Component {
 //     return {selected}
 // }
 
-export default connect(null, {selectChar})(withNavigation(CharListItem));
+export default (withNavigation(CharListItem));
