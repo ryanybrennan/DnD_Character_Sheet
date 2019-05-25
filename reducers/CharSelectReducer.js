@@ -6,7 +6,7 @@ const INITIAL_STATE = {};
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SELECT_CHARACTER:
-            return {...state, character: action.payload}
+            return {character: action.payload}
         default:
             return state;
     }

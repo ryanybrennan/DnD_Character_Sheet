@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import { withNavigation } from 'react-navigation';
 import RaceFeatureItem from '../components/RaceFeatures';
-import FeatureModal from '../components/FeatureModal';
+import RaceFeatureModal from '../components/RaceFeatureModal';
 
 class RacialFeaturesScreen extends React.Component {
+  _isMounted = false;
   constructor(props){
     super(props)
     this.state={
@@ -220,10 +221,7 @@ mapAbilityBonuses(ability_bonuses) {
                 onHideUnderlay={separators.unhighlight}>
                 <View style={{backgroundColor: 'white'}}>
                   <Text id={item.feature+index}>{item.feature}</Text>
-                  {/* {this.state.modalVisible===true ? (
-                  // <FeatureModal name={item.feature} info={item.info} modalVisible={this.state.modalVisible} closeModal={()=> this.setState({modalVisible: false})}/>
-                  
-                  ) : null} */}
+                  {/* <RaceFeatureModal name={item.feature} info={item.info} modalVisible={this.state.modalVisible} closeModal={()=> this.setState({modalVisible: false})}/> */}
                 </View>
               </TouchableHighlight>
             )}/>
@@ -242,7 +240,6 @@ mapAbilityBonuses(ability_bonuses) {
                           title="Close"
                           onPress={() => 
                           this.setModalVisible(false)}>
-                          {/* <Text>Hide Modal</Text> */}
                         </Button>
                       </View>
                     </View>

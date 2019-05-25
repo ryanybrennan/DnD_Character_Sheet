@@ -33,6 +33,7 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount(){
+    // this.props.character = dispatch(selectChar(this.props.navigation.geParam('charId')));
     // this.setState({character: this.props.navigation.getParam('character')});
     // this.props.navigation.setParams({character: this.props.character})
     // console.log(this.props);
@@ -120,6 +121,9 @@ class HomeScreen extends React.Component {
 const mapStateToProps = (state, props) => {
   // console.log(state);
   const character =  state.characters.find(x => x.id === props.navigation.getParam('charId'))
+  // const character = selectChar(props.navigation.getParam('charId'));
+  // const character = state.charSelect;
+  // character = selectChar(props.navigation.getParam('charId'));
   return {character: character};
   // return {characters: state.characters};
 }

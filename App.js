@@ -5,8 +5,9 @@ import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers/index';
+import ReduxThunk from 'redux-thunk';
 
 export default class App extends React.Component {
   state = {
@@ -24,7 +25,7 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <Provider store={createStore(reducers)}>
+        <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
           <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />

@@ -1,18 +1,49 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { connect } from 'react-redux';
+import * as actions from '../actions/index';
+import { withNavigation } from 'react-navigation';
 
 class SpellsScreen extends React.Component {
+  _isMounted = false;
+  constructor(props){
+    super(props)
+    this.state={
+      // character: {},
+      classes: [],
+      classFeatures: [],
+      levelFeaures: [],
+      url: String,
+      simpleFeatures: [],
+      complexFeatures: [],
+      modalVisible: false,
+      simpleFeature: null,
+      complexFeature: null,
+
+    }
+  }
+
     static navigationOptions = {
       title: 'Spells',
     };
+
+    componentDidMount(){
+      this.props.fetchSpells();
+      // console.log(this.props.spellList.length);
+    }
+    displaySpells(){
+      return this.props.spellList.spells.map((spell, index)=>
+      <Text key={index}>{spell.name}</Text>
+      )
+    }
   
     render() {
+      // console.log(this.props.spellList.spells);
       return (
         <ScrollView style={styles.container}>
-          {/* Go ahead and delete ExpoLinksView and replace it with your
-             * content, we just wanted to provide you with some helpful links */}
-          <Text>Spells List if Applicable</Text>
+          <Text>Spells List</Text>
+          {this.props.spellList.spells ? 
+          this.displaySpells() : null}
         </ScrollView>
       );
     }
@@ -26,4 +57,9 @@ class SpellsScreen extends React.Component {
     },
   });
 
-  export default SpellsScreen;
+  const mapStateToProps = (state, props) => {
+    const character =  state.characters.find(x => x.id === props.navigation.getParam('charId'))
+  return {character: character, spellList: state.spells};
+  }
+
+  export default connect(mapStateToProps, actions)(withNavigation(SpellsScreen));

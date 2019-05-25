@@ -1,1 +1,1 @@
-export const baseApi = "http://dnd5eapi.co/api/";
+export const baseApi = "http://www.dnd5eapi.co/api/";
