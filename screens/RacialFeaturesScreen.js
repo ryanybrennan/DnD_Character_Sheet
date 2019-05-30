@@ -145,7 +145,8 @@ displayInfo(){
       // console.log(this.state.complexFeature.info);
       return this.mapAbilityBonuses(this.state.complexFeature.info)
     }else if(this.state.complexFeature.feature == "language_options"){
-      return <Text>Nope nope nope</Text>
+      return this.state.complexFeature.info.from.map((lang, index)=>
+      <Text key={index}>{lang.name}</Text>)
     } else if(this.state.complexFeature.info.length >0) {
       // console.log(this.state.complexFeature.info);
       return this.mapFeatures(this.state.complexFeature.info)

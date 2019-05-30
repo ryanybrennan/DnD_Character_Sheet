@@ -133,9 +133,21 @@ class ClassFeaturesScreen extends React.Component {
         return <Text>{this.state.complexFeature.info.url}</Text>
       }else if(this.state.complexFeature.feature == "proficiency_choices"){
         // console.log(this.state.complexFeature.info);
-        return this.state.complexFeature.info.from.map((prof) => 
-        <Text>{prof}</Text>)
-      } else if(this.state.complexFeature.info.length >0) {
+        return this.state.complexFeature.info[0].from.map((prof, index) => 
+        <Text key={index}>{prof.name}</Text>)
+      } 
+      else if(this.state.complexFeature.feature =="spellcasting" && this.state.complexFeature.length !={}){
+        // console.log(this.state.complexFeature.info);
+        let spellslots = Object.keys(this.state.complexFeature.info).map(key => 
+          ({feature: key, info: this.state.complexFeature.info[key]}))
+        // console.log(spellslots);
+        return this.slotSpells(spellslots);
+      }else if(this.state.complexFeature.feature =="class_specific" && this.state.complexFeature.length != {}){
+        let classSpecific = Object.keys(this.state.complexFeature.info).map(key => 
+          ({feature: key, info: this.state.complexFeature.info[key]}))
+
+          return this.slotSpells(classSpecific);
+      }else if(this.state.complexFeature.info.length >0) {
         // console.log(this.state.complexFeature.info);
         return this.mapFeatures(this.state.complexFeature.info)
       }else{
@@ -150,6 +162,12 @@ class ClassFeaturesScreen extends React.Component {
     // console.log(info);
     return info.map((trait, index) =>
       <Text key={index}>{trait.name}</Text>)
+  }
+
+  slotSpells(spellslots){
+    return spellslots.map((slot, index)=>
+      <Text key={index}>{slot.feature}</Text>
+    )
   }
 
   render() {
